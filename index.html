@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The AI Visibility Formula — Mix. Test. Get Cited.</title>
+  <meta name="description" content="Where digital marketers experiment with AI visibility — together. A live testing ground for how ChatGPT, Perplexity, Gemini, and Claude describe your brand. Founding member rate $27/mo." />
+
+  <!-- Social share -->
+  <meta property="og:title" content="The AI Visibility Formula" />
+  <meta property="og:description" content="Where digital marketers experiment with AI visibility — together. Mix. Test. Get Cited." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#050110" />
+
+  <!-- Fonts: Orbitron (headlines/wordmark, weight 900) + Space Mono (body/labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       BRAND SYSTEM
+       Neon Pink  #FF2EE6  (primary)
+       Neon Cyan  #2EE6FF  (secondary/accent)
+       Sunset Gold #FFB800 (supporting)
+       Ultraviolet #9D4EFF (supporting)
+       Void Black #050110  (background)
+       ============================================================ */
+    :root {
+      --pink: #FF2EE6;
+      --cyan: #2EE6FF;
+      --gold: #FFB800;
+      --uv: #9D4EFF;
+      --void: #050110;
+      --void-2: #0b0320;
+      --ink: #f4ecff;
+      --muted: #b8a9d6;
+
+      --glow-pink: 0 0 6px rgba(255,46,230,.9), 0 0 22px rgba(255,46,230,.55), 0 0 48px rgba(255,46,230,.35);
+      --glow-cyan: 0 0 6px rgba(46,230,255,.9), 0 0 22px rgba(46,230,255,.5), 0 0 44px rgba(46,230,255,.3);
+
+      --maxw: 1120px;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--void);
+      color: var(--ink);
+      font-family: 'Space Mono', ui-monospace, monospace;
+      font-size: 17px;
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, .wordmark {
+      font-family: 'Orbitron', 'Space Mono', sans-serif;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: .01em;
+      margin: 0;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---------- Reusable neon type ---------- */
+    .neon-pink { color: #fff; text-shadow: var(--glow-pink); }
+    .neon-cyan { color: var(--cyan); text-shadow: var(--glow-cyan); }
+
+    /* ---------- Perspective grid floor motif ---------- */
+    .grid-floor {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 240%;
+      height: 55%;
+      transform: translateX(-50%) perspective(420px) rotateX(68deg);
+      transform-origin: bottom center;
+      background-image:
+        linear-gradient(to right, rgba(255,46,230,.28) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(46,230,255,.24) 1px, transparent 1px);
+      background-size: 44px 44px;
+      -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,.35) 55%, transparent 100%);
+      mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,.35) 55%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---------- Section scaffolding ---------- */
+    section { position: relative; }
+
+    .section-pad { padding: 92px 0; }
+
+    .eyebrow {
+      font-size: 13px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 4.4vw, 2.9rem);
+      max-width: 20ch;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      max-width: 62ch;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 15px;
+      text-decoration: none;
+      padding: 17px 30px;
+      border-radius: 999px;
+      background: var(--pink);
+      color: #12000f;
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: var(--glow-pink);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      cursor: pointer;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      background: #ff5bec;
+      box-shadow: 0 0 10px rgba(255,46,230,1), 0 0 34px rgba(255,46,230,.7), 0 0 70px rgba(255,46,230,.45);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--cyan);
+      border: 1px solid rgba(46,230,255,.5);
+      box-shadow: none;
+    }
+    .btn-ghost:hover {
+      background: rgba(46,230,255,.08);
+      box-shadow: var(--glow-cyan);
+      color: #fff;
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      overflow: hidden;
+      background:
+        radial-gradient(120% 80% at 50% -10%, rgba(157,78,255,.28), transparent 55%),
+        radial-gradient(90% 60% at 85% 20%, rgba(46,230,255,.12), transparent 60%),
+        var(--void);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tagline {
+      font-weight: 700;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: var(--cyan);
+      text-shadow: var(--glow-cyan);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 7.2vw, 5.1rem);
+      color: #fff;
+      text-shadow: var(--glow-pink);
+      margin-bottom: 20px;
+    }
+
+    .hero .subhead {
+      font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 20px;
+      max-width: 26ch;
+    }
+
+    .hero .body {
+      color: var(--muted);
+      max-width: 52ch;
+      margin-bottom: 34px;
+    }
+    .hero .body b { color: var(--ink); font-weight: 700; }
+
+    .hero-cta-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+
+    .price-note {
+      font-size: 13px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ---------- Beaker mark ---------- */
+    .beaker-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .beaker {
+      width: min(340px, 78vw);
+      height: auto;
+      filter: drop-shadow(0 0 26px rgba(255,46,230,.35));
+      animation: bob 5.5s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .spark { transform-origin: 100px 24px; animation: twinkle 2.6s ease-in-out infinite; }
+    @keyframes twinkle {
+      0%,100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      50% { opacity: .55; transform: scale(.82) rotate(45deg); }
+    }
+    .bub { animation: rise 4s ease-in-out infinite; }
+    .bub.b2 { animation-delay: 1.1s; }
+    .bub.b3 { animation-delay: 2.2s; }
+    @keyframes rise {
+      0% { transform: translateY(0); opacity: .2; }
+      40% { opacity: .95; }
+      100% { transform: translateY(-26px); opacity: 0; }
+    }
+
+    /* ============================================================
+       GENERIC PANELS / CARDS
+       ============================================================ */
+    .panel {
+      background: linear-gradient(180deg, rgba(157,78,255,.10), rgba(11,3,32,.6));
+      border: 1px solid rgba(157,78,255,.28);
+      border-radius: var(--radius);
+      padding: 30px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+    /* Problem section */
+    .problem { background: linear-gradient(180deg, var(--void), var(--void-2)); }
+    .problem .section-title { max-width: 24ch; }
+    .problem .section-title .accent { color: var(--cyan); text-shadow: var(--glow-cyan); }
+
+    /* What this is */
+    .lab-note {
+      border-left: 3px solid var(--cyan);
+      padding-left: 20px;
+      font-style: normal;
+      color: var(--ink);
+    }
+
+    /* ---------- Weekly rhythm ---------- */
+    .rhythm-card {
+      background: rgba(11,3,32,.55);
+      border: 1px solid rgba(46,230,255,.25);
+      border-radius: var(--radius);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .rhythm-card .day {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      letter-spacing: .1em;
+      font-size: 1.1rem;
+      color: var(--cyan);
+      text-shadow: var(--glow-cyan);
+      margin-bottom: 8px;
+    }
+    .rhythm-card .what { font-weight: 700; margin-bottom: 4px; }
+    .rhythm-card p { color: var(--muted); margin: 0; font-size: 15px; }
+
+    /* ---------- Channels ---------- */
+    .channel {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: rgba(11,3,32,.5);
+      border: 1px solid rgba(255,46,230,.22);
+      border-radius: 14px;
+      padding: 20px 22px;
+      transition: border-color .18s ease, transform .18s ease;
+    }
+    .channel:hover { border-color: rgba(255,46,230,.6); transform: translateY(-2px); }
+    .channel .emoji { font-size: 1.6rem; line-height: 1; }
+    .channel h3 { font-size: 1.02rem; font-family: 'Space Mono', monospace; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .05em; }
+    .channel p { color: var(--muted); margin: 0; font-size: 15px; }
+
+    /* ---------- Who it's for ---------- */
+    .who { background: linear-gradient(180deg, var(--void-2), var(--void)); }
+    .who-list { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 16px; }
+    .who-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      font-size: 1.02rem;
+    }
+    .who-list .tick {
+      flex: none; width: 26px; height: 26px; margin-top: 2px;
+      border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(46,230,255,.12);
+      border: 1px solid rgba(46,230,255,.5);
+      color: var(--cyan);
+      font-weight: 700;
+      box-shadow: 0 0 14px rgba(46,230,255,.25);
+    }
+
+    /* ============================================================
+       PRICING
+       ============================================================ */
+    .pricing { text-align: center; }
+    .price-card {
+      max-width: 560px;
+      margin: 36px auto 0;
+      background:
+        radial-gradient(120% 120% at 50% 0%, rgba(255,46,230,.16), transparent 60%),
+        linear-gradient(180deg, rgba(11,3,32,.9), rgba(5,1,16,.9));
+      border: 1px solid rgba(255,46,230,.5);
+      border-radius: 22px;
+      padding: 44px 34px;
+      box-shadow: 0 0 40px rgba(255,46,230,.18), inset 0 0 40px rgba(157,78,255,.08);
+      position: relative;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold);
+      border: 1px solid rgba(255,184,0,.5);
+      background: rgba(255,184,0,.08);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+      text-shadow: 0 0 12px rgba(255,184,0,.5);
+    }
+    .price-big {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 10vw, 4.4rem);
+      color: #fff;
+      text-shadow: var(--glow-pink);
+      line-height: 1;
+    }
+    .price-big .per { font-size: 1.1rem; color: var(--muted); text-shadow: none; letter-spacing: .05em; }
+    .price-sub { color: var(--cyan); letter-spacing: .14em; text-transform: uppercase; font-size: 13px; font-weight: 700; margin-top: 8px; }
+    .price-copy { color: var(--muted); max-width: 46ch; margin: 22px auto 30px; }
+    .price-copy b { color: var(--ink); }
+
+    /* ============================================================
+       FAQ
+       ============================================================ */
+    .faq details {
+      border: 1px solid rgba(157,78,255,.3);
+      border-radius: 14px;
+      background: rgba(11,3,32,.5);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .faq details[open] { border-color: rgba(46,230,255,.5); }
+    .faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 22px 26px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary .plus {
+      flex: none;
+      color: var(--cyan);
+      font-size: 1.5rem;
+      transition: transform .2s ease;
+      text-shadow: var(--glow-cyan);
+    }
+    .faq details[open] summary .plus { transform: rotate(45deg); }
+    .faq .answer { padding: 0 26px 24px; color: var(--muted); }
+
+    /* ============================================================
+       FINAL CTA / FOOTER
+       ============================================================ */
+    .final {
+      position: relative;
+      text-align: center;
+      padding: 110px 0 60px;
+      overflow: hidden;
+      background:
+        radial-gradient(100% 70% at 50% 120%, rgba(157,78,255,.3), transparent 60%),
+        var(--void);
+    }
+    .final h2 {
+      font-size: clamp(1.8rem, 5vw, 3.1rem);
+      color: #fff;
+      text-shadow: var(--glow-pink);
+      max-width: 22ch;
+      margin: 0 auto 34px;
+      position: relative; z-index: 2;
+    }
+    .final .btn { position: relative; z-index: 2; }
+
+    footer {
+      position: relative;
+      z-index: 2;
+      margin-top: 70px;
+      padding-top: 34px;
+      border-top: 1px solid rgba(157,78,255,.25);
+    }
+    .footer-mark {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      margin-bottom: 14px;
+    }
+    .footer-mark svg { width: 34px; height: auto; }
+    .footer-word {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      letter-spacing: .06em;
+      color: var(--cyan);
+      text-shadow: var(--glow-cyan);
+      font-size: 1rem;
+    }
+    .footer-tag {
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer-fine { color: #6b5a8c; font-size: 12px; margin-top: 20px; letter-spacing: .04em; }
+    .footer-fine a { color: var(--cyan); text-decoration: none; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero .subhead, .hero .body { margin-left: auto; margin-right: auto; }
+      .hero-cta-row { justify-content: center; }
+      .beaker-stage { order: -1; margin-bottom: 10px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 16px; }
+      .section-pad { padding: 68px 0; }
+      .wrap { padding: 0 18px; }
+      .btn { padding: 15px 24px; font-size: 14px; }
+      .price-card { padding: 34px 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .beaker, .spark, .bub { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================== HERO ============================== -->
+  <section class="hero">
+    <div class="grid-floor" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="tagline">Mix. Test. Get Cited.</p>
+        <h1>The AI Visibility Formula</h1>
+        <p class="subhead">Where digital marketers experiment with AI visibility — together.</p>
+        <p class="body">
+          AI platforms like <b>ChatGPT</b>, <b>Perplexity</b>, and <b>Gemini</b> are becoming the new front
+          door to your brand — and most marketers have no idea what these platforms are actually
+          saying. This is the lab where we find out, test what works, and share it in real time.
+        </p>
+        <div class="hero-cta-row">
+          <a class="btn" href="#pricing">Join the Founding Cohort — $27/mo</a>
+          <span class="price-note">Founding rate · limited spots</span>
+        </div>
+      </div>
+
+      <div class="beaker-stage">
+        <!-- Neon beaker mark: pink flask outline, cyan→pink liquid, bubbles, cyan spark -->
+        <svg class="beaker" viewBox="0 0 200 240" role="img" aria-label="Glowing neon lab flask — the AI Visibility Formula mark">
+          <defs>
+            <linearGradient id="liquid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2EE6FF" />
+              <stop offset="55%" stop-color="#7B5BFF" />
+              <stop offset="100%" stop-color="#FF2EE6" />
+            </linearGradient>
+            <filter id="glowPink" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="3.4" result="b" />
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glowCyan" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="2.6" result="b" />
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <clipPath id="flaskClip">
+              <path d="M84 44 L84 92 L44 176 a16 16 0 0 0 14 24 L142 200 a16 16 0 0 0 14 -24 L116 92 L116 44 Z" />
+            </clipPath>
+          </defs>
+
+          <!-- Liquid (clipped to flask interior) -->
+          <g clip-path="url(#flaskClip)">
+            <rect x="40" y="130" width="120" height="90" fill="url(#liquid)" opacity="0.92" />
+            <ellipse cx="100" cy="131" rx="60" ry="7" fill="#2EE6FF" opacity="0.55" />
+            <!-- bubbles -->
+            <circle class="bub" cx="82" cy="180" r="4" fill="#bff6ff" opacity="0.9" />
+            <circle class="bub b2" cx="112" cy="188" r="3" fill="#ffffff" opacity="0.85" />
+            <circle class="bub b3" cx="98" cy="172" r="2.5" fill="#bff6ff" opacity="0.8" />
+            <circle cx="120" cy="196" r="2" fill="#ffffff" opacity="0.7" />
+          </g>
+
+          <!-- Flask outline (pink neon) -->
+          <path d="M84 44 L84 92 L44 176 a16 16 0 0 0 14 24 L142 200 a16 16 0 0 0 14 -24 L116 92 L116 44 Z"
+                fill="none" stroke="#FF2EE6" stroke-width="6" stroke-linejoin="round"
+                filter="url(#glowPink)" />
+          <!-- Neck rim -->
+          <line x1="78" y1="44" x2="122" y2="44" stroke="#FF2EE6" stroke-width="6"
+                stroke-linecap="round" filter="url(#glowPink)" />
+
+          <!-- Cyan spark / asterisk rising from opening -->
+          <g class="spark" filter="url(#glowCyan)">
+            <path d="M100 8 L104 26 L122 24 L106 34 L116 50 L100 40 L84 50 L94 34 L78 24 L96 26 Z"
+                  fill="#2EE6FF" />
+            <circle cx="100" cy="29" r="3" fill="#eafcff" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== PROBLEM ============================== -->
+  <section class="problem section-pad">
+    <div class="wrap">
+      <p class="eyebrow">The Problem</p>
+      <h2 class="section-title">
+        Your clients are being described by AI right now.
+        <span class="accent">Do you know what it's saying?</span>
+      </h2>
+      <p class="lead" style="margin-top:24px;">
+        Search used to mean ten blue links you could optimize for. Now it means an AI platform
+        synthesizing an answer — and either citing your brand, getting it wrong, or leaving it out
+        entirely. Most marketers are still optimizing for a search engine that's quietly becoming
+        secondary. The ones who figure out AI visibility first will have a real edge. This is where
+        you figure it out.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================== WHAT THIS IS ============================== -->
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="grid-2" style="align-items:center;">
+        <div>
+          <p class="eyebrow">What This Is</p>
+          <h2 class="section-title">A live testing ground, <span class="neon-cyan">not a course.</span></h2>
+        </div>
+        <div class="lab-note">
+          <p style="margin:0;">
+            The AI Visibility Formula isn't a stack of pre-recorded videos you'll never finish. It's
+            an active community of marketers running real experiments — testing prompts, comparing
+            how different AI platforms represent brands, and sharing what's actually working right
+            now. Think of it as a <b>lab notebook we're all writing together.</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== WHAT YOU GET ============================== -->
+  <section class="section-pad" style="background:linear-gradient(180deg,var(--void),var(--void-2));">
+    <div class="wrap">
+      <p class="eyebrow">What You Get</p>
+      <h2 class="section-title">Inside the Lab</h2>
+
+      <h3 style="font-family:'Space Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--cyan);font-size:.95rem;margin:40px 0 20px;">
+        ⚗️ The Weekly Rhythm
+      </h3>
+      <div class="grid-3">
+        <div class="rhythm-card">
+          <div class="day">Monday</div>
+          <div class="what">Weekly prompt / challenge drop</div>
+          <p>A fresh experiment to run — something to test the moment you log in.</p>
+        </div>
+        <div class="rhythm-card">
+          <div class="day">Wednesday</div>
+          <div class="what">Live office hours</div>
+          <p>Test something live and bring your own brand. We troubleshoot together.</p>
+        </div>
+        <div class="rhythm-card">
+          <div class="day">Friday</div>
+          <div class="what">Video breakdown</div>
+          <p>A platform-behavior teardown — what changed and what it means for you.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Space Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--cyan);font-size:.95rem;margin:52px 0 20px;">
+        🧫 Community Spaces
+      </h3>
+      <div class="grid-2">
+        <div class="channel">
+          <span class="emoji">🧪</span>
+          <div>
+            <h3>Prompt Testing Lab</h3>
+            <p>Share what you tested and what surfaced across the platforms.</p>
+          </div>
+        </div>
+        <div class="channel">
+          <span class="emoji">🎥</span>
+          <div>
+            <h3>Weekly Breakdowns</h3>
+            <p>Video teardowns of how AI platforms behave — and why.</p>
+          </div>
+        </div>
+        <div class="channel">
+          <span class="emoji">🏆</span>
+          <div>
+            <h3>Monthly Challenge</h3>
+            <p>Audit your own brand across every major AI platform.</p>
+          </div>
+        </div>
+        <div class="channel">
+          <span class="emoji">🛠️</span>
+          <div>
+            <h3>Tool Talk</h3>
+            <p>What's actually worth paying for — tested by the crew.</p>
+          </div>
+        </div>
+        <div class="channel">
+          <span class="emoji">🎯</span>
+          <div>
+            <h3>Wins &amp; Case Studies</h3>
+            <p>Real results from real members you can learn from.</p>
+          </div>
+        </div>
+        <div class="channel" style="border-color:rgba(46,230,255,.3);">
+          <span class="emoji">✨</span>
+          <div>
+            <h3>...and whatever we discover next</h3>
+            <p>The lab evolves as fast as the AI search landscape does.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== WHO IT'S FOR ============================== -->
+  <section class="who section-pad">
+    <div class="wrap">
+      <p class="eyebrow">Who It's For</p>
+      <h2 class="section-title">Built for marketers who want to stay ahead, not catch up later</h2>
+      <ul class="who-list">
+        <li><span class="tick">✓</span><span><b>SEO specialists</b> who see the ground shifting under organic search.</span></li>
+        <li><span class="tick">✓</span><span><b>Agency owners</b> who want to offer AI visibility services but don't know where to start.</span></li>
+        <li><span class="tick">✓</span><span><b>Freelancers</b> looking to add a high-demand skill to their toolkit.</span></li>
+        <li><span class="tick">✓</span><span><b>Content marketers</b> who want their work to actually get cited by AI, not just indexed.</span></li>
+        <li><span class="tick">✓</span><span>Anyone tired of guessing what ChatGPT says about their brand.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================== PRICING ============================== -->
+  <section class="pricing section-pad" id="pricing">
+    <div class="wrap">
+      <p class="eyebrow" style="text-align:center;">Founding Member Pricing</p>
+      <h2 class="section-title" style="margin:0 auto;text-align:center;max-width:24ch;">
+        Founding Member Pricing — <span class="neon-pink">Locked In For Life</span>
+      </h2>
+
+      <div class="price-card">
+        <span class="badge">🏅 Original Lab Crew</span>
+        <div class="price-big">$27<span class="per"> /month</span></div>
+        <div class="price-sub">Founding Rate — Limited Spots</div>
+        <p class="price-copy">
+          The first <b>30–50 members</b> get $27/month, locked in permanently. After the founding
+          cohort fills, the price goes up for everyone who joins after. Founding members also get a
+          <b>badge</b> marking them as part of the original lab crew.
+        </p>
+        <a class="btn" href="https://www.skool.com/" target="_blank" rel="noopener">Claim Your Founding Spot</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== FAQ ============================== -->
+  <section class="faq section-pad" style="background:linear-gradient(180deg,var(--void-2),var(--void));">
+    <div class="wrap" style="max-width:820px;">
+      <p class="eyebrow">FAQ</p>
+      <h2 class="section-title" style="margin-bottom:34px;">Questions from the lab</h2>
+
+      <details>
+        <summary>What if I'm not technical? <span class="plus">+</span></summary>
+        <div class="answer">
+          Good — this isn't a technical community. If you can write a Google search, you can run
+          these experiments. We keep things practical and plain-language.
+        </div>
+      </details>
+
+      <details>
+        <summary>How much time does this take? <span class="plus">+</span></summary>
+        <div class="answer">
+          As much or as little as you want. The live calls and weekly drops give you structure, but
+          the community itself is there whenever you have 15 minutes to test something.
+        </div>
+      </details>
+
+      <details>
+        <summary>Is this connected to Gold Light Digital? <span class="plus">+</span></summary>
+        <div class="answer">
+          The founder, Kara Reagan, also runs Gold Light Digital, a compliance-focused AI visibility
+          consultancy for regulated industries. This community is separate — built for any marketer,
+          not just regulated-industry brands.
+        </div>
+      </details>
+
+      <details>
+        <summary>What platforms do you test? <span class="plus">+</span></summary>
+        <div class="answer">
+          ChatGPT, Perplexity, Gemini, Claude, and whatever else becomes relevant as the AI search
+          landscape evolves.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I cancel anytime? <span class="plus">+</span></summary>
+        <div class="answer">
+          Yes. No contracts, cancel whenever.
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================== FINAL CTA / FOOTER ============================== -->
+  <section class="final">
+    <div class="grid-floor" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2>The formula is better with more people testing it.</h2>
+      <a class="btn" href="#pricing">Join The AI Visibility Formula — $27/mo</a>
+
+      <footer>
+        <div class="footer-mark">
+          <svg viewBox="0 0 200 240" aria-hidden="true">
+            <defs>
+              <linearGradient id="liquidF" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2EE6FF" />
+                <stop offset="100%" stop-color="#FF2EE6" />
+              </linearGradient>
+            </defs>
+            <g clip-path="url(#flaskClip)">
+              <rect x="40" y="140" width="120" height="80" fill="url(#liquidF)" opacity="0.9" />
+            </g>
+            <path d="M84 44 L84 92 L44 176 a16 16 0 0 0 14 24 L142 200 a16 16 0 0 0 14 -24 L116 92 L116 44 Z"
+                  fill="none" stroke="#FF2EE6" stroke-width="7" stroke-linejoin="round" />
+            <line x1="78" y1="44" x2="122" y2="44" stroke="#FF2EE6" stroke-width="7" stroke-linecap="round" />
+            <path d="M100 8 L104 26 L122 24 L106 34 L116 50 L100 40 L84 50 L94 34 L78 24 L96 26 Z" fill="#2EE6FF" />
+          </svg>
+          <span class="footer-word">The AI Visibility Formula</span>
+        </div>
+        <p class="footer-tag">Mix. Test. Get Cited.</p>
+        <p class="footer-fine">
+          © <span id="yr"></span> The AI Visibility Formula. A community project — separate from
+          <a href="#">Gold Light Digital</a>.
+        </p>
+      </footer>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
